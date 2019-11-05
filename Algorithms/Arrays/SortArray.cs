@@ -6,29 +6,30 @@ namespace Algorithms.Arrays
 {
     public static class SortArray
     {
-        public static void SelectionSort()
+        public static int[] SelectionSort(int[] array)
         {
-            var array = CommonFunctions.InitIntArray(100, 0, 100);
+            var unsortedArray = new int[array.Length];
+            array.CopyTo(unsortedArray, 0);
 
-            var sortedArray = new int[array.Length];
-            for(var i = 0; i < array.Length; i++)
+            var sortedArray = new int[unsortedArray.Length];
+            for(var i = 0; i < unsortedArray.Length; i++)
             {
                 var minValue = int.MaxValue;
                 var minElement = -1;
-                for(var j = 0; j < array.Length; j++)
+                for(var j = 0; j < unsortedArray.Length; j++)
                 {
-                    if(array[j] < minValue)
+                    if(unsortedArray[j] < minValue)
                     {
-                        minValue = array[j];
+                        minValue = unsortedArray[j];
                         minElement = j;
                     }
                 }
 
                 sortedArray[i] = minValue;
-                array[minElement] = int.MaxValue;
+                unsortedArray[minElement] = int.MaxValue;
             }
 
-            CommonFunctions.PrintArray(sortedArray);
+            return sortedArray;
         }
 
     }

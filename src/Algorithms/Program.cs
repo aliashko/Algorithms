@@ -1,6 +1,4 @@
-﻿using Algorithms.Arrays;
-using Algorithms.MathOperations;
-using System;
+﻿using System;
 
 namespace Algorithms
 {

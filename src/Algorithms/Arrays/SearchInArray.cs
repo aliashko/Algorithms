@@ -1,11 +1,14 @@
 ﻿using Algorithms.Arrays.Models;
 using System;
-using System.Linq;
 
 namespace Algorithms.Arrays
 {
     public static class SearchInArray
     {
+        /// <summary>
+        /// time complexity  - O(n)
+        /// space complexity - O(1)
+        /// </summary>
         public static ArrayElement GetMaxElement(int[] array)
         {
             var maxElementIndex = 0;
@@ -20,6 +23,10 @@ namespace Algorithms.Arrays
             return new ArrayElement(maxElementIndex, array[maxElementIndex]);
         }
 
+        /// <summary>
+        /// time complexity  - O(log(n))
+        /// space complexity - O(1)
+        /// </summary>
         public static int BinarySearchRecursive(int[] array, int startIndex, int endIndex, int searchNumber)
         {
             var currentIndex = startIndex + ((endIndex - startIndex) / 2);

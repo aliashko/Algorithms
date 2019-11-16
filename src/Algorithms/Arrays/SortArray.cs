@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Algorithms.Arrays
+﻿namespace Algorithms.Arrays
 {
     public static class SortArray
     {
+        /// <summary>
+        /// time complexity  - O(n^2)
+        /// space complexity - O(n)
+        /// </summary>
         public static int[] SelectionSort(int[] array)
         {
             var unsortedArray = new int[array.Length];
@@ -32,6 +32,10 @@ namespace Algorithms.Arrays
             return sortedArray;
         }
 
+        /// <summary>
+        /// time complexity  - O(n log(n))
+        /// space complexity - O(n log(n))
+        /// </summary>
         public static int[] MergeSort(int[] array)
         {
             if(array.Length == 1)

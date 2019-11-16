@@ -20,6 +20,30 @@ namespace Algorithms.Arrays
             return array;
         }
 
+        public static int[] ConcatSortedArrays(int[] array1, int[] array2)
+        {
+            var mergedArray = new int[array1.Length + array2.Length];
+            var array1index = 0;
+            var array2index = 0;
+
+            for (int i = 0; i < array1.Length + array2.Length; i++)
+            {
+                if (array2index >= array2.Length || (array1index < array1.Length && array1[array1index] < array2[array2index]))
+                {
+                    mergedArray[i] = array1[array1index];
+                    array1index++;
+                }
+                else
+                {
+                    mergedArray[i] = array2[array2index];
+                    array2index++;
+                }
+            }
+
+            return mergedArray;
+        }
+
+        #region Output functions
         public static void PrintArray(int[] array)
         {
             Console.WriteLine($"Array[{array.Length}] = [{string.Join(',', array)}]");
@@ -29,5 +53,6 @@ namespace Algorithms.Arrays
         {
             Console.WriteLine($"array[{arrayElement.ElementIndex}] = {arrayElement.ElementValue}");
         }
+        #endregion
     }
 }

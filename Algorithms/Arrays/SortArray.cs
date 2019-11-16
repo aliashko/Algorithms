@@ -32,5 +32,30 @@ namespace Algorithms.Arrays
             return sortedArray;
         }
 
+        public static int[] MergeSort(int[] array)
+        {
+            if(array.Length == 1)
+            {
+                return array;
+            }
+
+            var array1 = new int[array.Length / 2];
+            var array2 = new int[array.Length - array1.Length];
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (i < array1.Length)
+                {
+                    array1[i] = array[i];
+                }
+                else
+                {
+                    array2[i - array1.Length] = array[i];
+                }
+            }
+
+            var sortedArray = CommonArrayFunctions.ConcatSortedArrays(MergeSort(array1), MergeSort(array2));
+            return sortedArray;
+        }
+
     }
 }

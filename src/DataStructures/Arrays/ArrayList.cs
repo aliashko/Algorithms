@@ -62,6 +62,12 @@ namespace DataStructures.Arrays
             }
 
             data[data.Length - 1] = default;
+            currentIndex--;
+        }
+
+        public int GetLength()
+        {
+            return currentIndex;
         }
 
         private void CheckIfIndexAvailable(int index)

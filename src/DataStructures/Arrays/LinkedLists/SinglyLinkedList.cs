@@ -2,11 +2,6 @@
 {
     public class SinglyLinkedList<T>
     {
-        public SinglyLinkedList()
-        {
-            HeadNode = new SinglyLinkedListNode<T>();
-        }
-
         private SinglyLinkedListNode<T> HeadNode;
 
         public SinglyLinkedListNode<T> GetHeadNode()
@@ -16,25 +11,52 @@
 
         public void AddToTail(T element)
         {
-            HeadNode.AddToTail(element);
+            if (HeadNode == null)
+            {
+                HeadNode = new SinglyLinkedListNode<T>(element);
+            }
+            else
+            {
+                HeadNode.AddToTail(element);
+            }
         }
 
         public void RemoveItem(T element)
         {
+            var previousNode = HeadNode;
+
             for (var node = HeadNode; node != null; node = node.GetNextNode()) 
             {
-                if(node.GetNextNode() != null)
+                if (node.Data.Equals(element))
                 {
-                    if (node.GetNextNode().Data.Equals(element))
+                    if (node.Equals(HeadNode))
                     {
-                        node.SetNextNode(node.GetNextNode().GetNextNode());
+                        HeadNode = node.GetNextNode();
+                        break;
                     }
-                }
-                else if (node.Data.Equals(element))
-                {
-                    node = null;
-                }
+
+                    previousNode.SetNextNode(node.GetNextNode());
+                }                
+
+                previousNode = node;
             }
+
+            // Variant #2 without temporary variable but with additional checks
+            //if (HeadNode != null && HeadNode.Data.Equals(element))
+            //{
+            //    HeadNode = HeadNode.GetNextNode();
+            //    return;
+            //}
+
+            //for (var node = HeadNode; node != null; node = node.GetNextNode())
+            //{
+            //    var nextNode = node.GetNextNode();
+
+            //    if (nextNode != null && nextNode.Data.Equals(element))
+            //    {
+            //        node.SetNextNode(nextNode.GetNextNode());
+            //    }
+            //}            
         }
     }
 }

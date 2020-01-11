@@ -30,7 +30,7 @@ namespace DataStructures.UnitTests.Arrays.LinkedLists
             }            
         }
 
-        [DataTestMethod]
+        [TestMethod]
         public void ElementValueCanBeSet()
         {
             arrayList.SetValue(0, 1000);
@@ -43,7 +43,7 @@ namespace DataStructures.UnitTests.Arrays.LinkedLists
             Assert.AreEqual(arrayList[70], 70);
         }
 
-        [DataTestMethod]
+        [TestMethod]
         public void ElementCanBeRemovedFromList()
         {
             arrayList.Remove(50);

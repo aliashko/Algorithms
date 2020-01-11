@@ -10,7 +10,7 @@
         private SinglyLinkedListNode<T> NextNode = null;
 
         public T Data { get; }
-
+        
         public SinglyLinkedListNode<T> GetNextNode()
         {
             return NextNode;

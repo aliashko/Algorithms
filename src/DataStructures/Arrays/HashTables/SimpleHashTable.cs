@@ -5,21 +5,28 @@ namespace DataStructures.Arrays.HashTables
 {
     public class SimpleHashTable<TKey, TValue>
     {
-        public SimpleHashTable(int capacity = 10)
+        private const int minCapacity = 10;
+        private const int maxCapacity = int.MaxValue;
+
+        public SimpleHashTable()
         {
-            Capacity = capacity;
-            InitializeBuckets(capacity);
+            ResizeHashTable(minCapacity, true);
         }
-
-        private int Capacity { get; }
-
+        
         private SinglyLinkedList<HashTableBucketItem<TKey, TValue>>[] Buckets;
+
+        public int Count { get; private set; }
 
         public void AddItem(TKey key, TValue value)
         {
             if (ContainsKey(key))
             {
                 throw new ArgumentException($"Duplicated key: {key}");
+            }
+
+            if(Count == Buckets.Length)
+            {
+                ResizeHashTable(Buckets.Length * 2);
             }
 
             var bucketIndex = GetBucketIndex(key);
@@ -29,6 +36,7 @@ namespace DataStructures.Arrays.HashTables
             }
 
             Buckets[bucketIndex].AddToTail(new HashTableBucketItem<TKey, TValue>(key, value));
+            Count++;
         }
 
         public bool ContainsKey(TKey key)
@@ -54,17 +62,63 @@ namespace DataStructures.Arrays.HashTables
             }
 
             Buckets[bucketIndex].RemoveItem(bucketItem.Value);
+            Count--;
+
+            if (Count <= Buckets.Length / 2)
+            {
+                ResizeHashTable(Buckets.Length / 2);
+            }
         }
 
-        private void InitializeBuckets(int newCapacity)
+        private void ResizeHashTable(int newCapacity, bool initialize = false)
         {
-            Buckets = new SinglyLinkedList<HashTableBucketItem<TKey, TValue>>[newCapacity];
+            if(newCapacity > maxCapacity)
+            {
+                newCapacity = maxCapacity;
+            }
+            else if (newCapacity < minCapacity)
+            {
+                newCapacity = minCapacity;
+            }
+            if(!initialize && newCapacity == Buckets.Length)
+            {
+                return;
+            }
+
+            var newBuckets = new SinglyLinkedList<HashTableBucketItem<TKey, TValue>>[newCapacity];
+
+            if (!initialize)
+            {
+                for(int bucketIndex = 0; bucketIndex< Buckets.Length; bucketIndex++)
+                {
+                    if(Buckets[bucketIndex] == null) 
+                    {
+                        continue;
+                    }
+
+                    var currentBucketNode = Buckets[bucketIndex].GetHeadNode();
+                    while (currentBucketNode != null)
+                    {
+                        var newBucketIndex = GetBucketIndex(currentBucketNode.Data.Key, newCapacity);
+                        if (newBuckets[newBucketIndex] == null)
+                        {
+                            newBuckets[newBucketIndex] = new SinglyLinkedList<HashTableBucketItem<TKey, TValue>>();
+                        }
+
+                        newBuckets[newBucketIndex].AddToTail(currentBucketNode.Data);
+
+                        currentBucketNode = currentBucketNode.GetNextNode();
+                    }
+                }
+            }
+
+            Buckets = newBuckets;
         }
 
-        private int GetBucketIndex(TKey key)
+        private int GetBucketIndex(TKey key, int? calculateForCapacity = null)
         {
             var hashIndex = Math.Abs(key.GetHashCode());
-            var bucketIndex = hashIndex / (int.MaxValue / Capacity);
+            var bucketIndex = hashIndex % (calculateForCapacity ?? Buckets.Length);
 
             return bucketIndex;
         }
@@ -90,19 +144,19 @@ namespace DataStructures.Arrays.HashTables
 
             return null;
         }
-    }
 
-    // built in KeyValuePair can be used instead
-    struct HashTableBucketItem<TKey, TValue>
-    {
-        public HashTableBucketItem(TKey key, TValue value)
+        // built in KeyValuePair can be used instead
+        private struct HashTableBucketItem<TKey, TValue>
         {
-            Key = key;
-            Value = value;
+            public HashTableBucketItem(TKey key, TValue value)
+            {
+                Key = key;
+                Value = value;
+            }
+
+            public TKey Key { get; }
+
+            public TValue Value { get; }
         }
-
-        public TKey Key { get; }
-
-        public TValue Value { get; }
     }
 }

@@ -7,15 +7,35 @@ namespace UnitTests.Arrays
 {
     [TestClass]
     public class SortArrayTests
-    {
+    {        
         [TestMethod]
         public void MergeSort()
         {
+            TestSort(SortArray.MergeSort);
+        }
+
+        [TestMethod]
+        public void InsertionSortTest()
+        {
+            TestSort(SortArray.InsertionSort);
+        }
+
+        [TestMethod]
+        public void SelectionSortTest()
+        {
+            TestSort(SortArray.SelectionSort);
+        }
+
+        private void TestSort(Action<int[]> sortMethod)
+        {
             var random = new Random();
-            for (int t = 0; t < 10000; t++)
+            for (int i = 0; i < 10000; i++)
             {
-                var array = CommonArrayFunctions.InitIntArray(random.Next(50, 250), 0, random.Next(50, 250));
-                var sortedArray = SortArray.MergeSort(array);
+                var array = CommonArrayFunctions.InitIntArray(i/100, 0, random.Next(0, i));
+                var sortedArray = new int[array.Length];
+                array.CopyTo(sortedArray, 0);
+
+                sortMethod(sortedArray);
 
                 Assert.IsTrue(IsArraysEqual(sortedArray, array.OrderBy(x => x).ToArray()));
             }

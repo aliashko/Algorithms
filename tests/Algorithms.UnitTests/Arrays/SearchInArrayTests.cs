@@ -14,7 +14,9 @@ namespace UnitTests.Arrays
             for (int t = 0; t < 100000; t++)
             {
                 var array = CommonArrayFunctions.InitIntArray(random.Next(50, 150), 0, random.Next(50, 150));
-                var sortedArray = SortArray.SelectionSort(array);
+                var sortedArray = new int[array.Length];
+                array.CopyTo(sortedArray, 0);
+                SortArray.SelectionSort(sortedArray);
 
                 for (int t2 = 0; t2 < array.Length; t2++)
                 {

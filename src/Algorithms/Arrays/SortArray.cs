@@ -6,12 +6,11 @@
         /// time complexity  - O(n^2)
         /// space complexity - O(n)
         /// </summary>
-        public static int[] SelectionSort(int[] array)
+        public static void SelectionSort(int[] array)
         {
             var unsortedArray = new int[array.Length];
             array.CopyTo(unsortedArray, 0);
 
-            var sortedArray = new int[unsortedArray.Length];
             for(var i = 0; i < unsortedArray.Length; i++)
             {
                 var minValue = int.MaxValue;
@@ -25,24 +24,17 @@
                     }
                 }
 
-                sortedArray[i] = minValue;
+                array[i] = minValue;
                 unsortedArray[minElement] = int.MaxValue;
             }
-
-            return sortedArray;
         }
 
         /// <summary>
         /// time complexity  - O(n log(n))
         /// space complexity - O(n log(n))
         /// </summary>
-        public static int[] MergeSort(int[] array)
+        public static void MergeSort(int[] array)
         {
-            if(array.Length == 1)
-            {
-                return array;
-            }
-
             var array1 = new int[array.Length / 2];
             var array2 = new int[array.Length - array1.Length];
             for (int i = 0; i < array.Length; i++)
@@ -57,9 +49,31 @@
                 }
             }
 
-            var sortedArray = CommonArrayFunctions.ConcatSortedArrays(MergeSort(array1), MergeSort(array2));
-            return sortedArray;
+            MergeSort(array1);
+            MergeSort(array2);
+
+            CommonArrayFunctions.ConcatSortedArrays(array, array1, array2);
         }
 
+        /// <summary>
+        /// time complexity  - average - O(n^2); best - O(n);
+        /// space complexity - O(1)
+        /// </summary>
+        public static void InsertionSort(int[] array)
+        {
+            for (int i = 1; i < array.Length; i++) 
+            {    
+                var movingElement = array[i];
+                var moveToIndex = i - 1;
+
+                while(moveToIndex >= 0 && array[moveToIndex] > movingElement)
+                {
+                    array[moveToIndex + 1] = array[moveToIndex];
+                    moveToIndex--;
+                }
+
+                array[moveToIndex + 1] = movingElement;                
+            }
+        }
     }
 }

@@ -75,5 +75,65 @@
                 array[moveToIndex + 1] = movingElement;                
             }
         }
+
+        /// <summary>
+        /// time complexity  - average - O(n log(n)); best - O(n log(n)); worst - O(n^2)
+        /// space complexity - O(n log(n))
+        /// </summary>
+        public static void QuickSort(int[] array, int? endIndex = null)
+        {
+            if (endIndex == null) endIndex = array.Length;
+
+            if (endIndex < 2)
+            {
+                return;
+            }
+
+            var pivot = array[endIndex.Value / 2];
+            int[] left = new int[endIndex.Value];
+            int leftLength = 0;
+            int[] center = new int[endIndex.Value];
+            int centerLength = 0;
+            int[] right = new int[endIndex.Value];
+            int rightLength = 0;
+
+            for (int i = 0; i < endIndex; i++)
+            {
+                if (array[i] < pivot)
+                {
+                    left[leftLength] = array[i];
+                    leftLength++;
+                }
+                else if (array[i] > pivot)
+                {
+                    right[rightLength] = array[i];
+                    rightLength++;
+                }
+                else
+                {
+                    center[centerLength] = array[i];
+                    centerLength++;
+                }
+            }
+
+            QuickSort(left, leftLength);
+            QuickSort(right, rightLength);
+
+            for(int i=0; i< endIndex; i++)
+            {
+                if (i < leftLength)
+                {
+                    array[i] = left[i];
+                }
+                else if (i < leftLength + centerLength)
+                {
+                    array[i] = center[i-leftLength];
+                }
+                else
+                {
+                    array[i] = right[i - leftLength - centerLength];
+                }
+            }
+        }
     }
 }

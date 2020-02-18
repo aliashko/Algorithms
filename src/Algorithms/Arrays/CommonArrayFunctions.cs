@@ -38,6 +38,7 @@ namespace Algorithms.Arrays
             }
         }
 
+
         #region Output functions
         public static void PrintArray(int[] array)
         {

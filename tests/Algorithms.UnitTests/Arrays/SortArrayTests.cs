@@ -26,6 +26,12 @@ namespace UnitTests.Arrays
             TestSort(SortArray.SelectionSort);
         }
 
+        [TestMethod]
+        public void QuickSortTest()
+        {
+            TestSort((arr)=>SortArray.QuickSort(arr, null));
+        }
+
         private void TestSort(Action<int[]> sortMethod)
         {
             var random = new Random();

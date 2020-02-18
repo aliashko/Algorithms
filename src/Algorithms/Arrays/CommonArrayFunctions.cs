@@ -38,6 +38,12 @@ namespace Algorithms.Arrays
             }
         }
 
+        public static void SwapElements(int[] array, int index1, int index2)
+        {
+            var t = array[index1];
+            array[index1] = array[index2];
+            array[index2] = t;
+        }
 
         #region Output functions
         public static void PrintArray(int[] array)

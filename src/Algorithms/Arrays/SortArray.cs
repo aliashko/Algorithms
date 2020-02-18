@@ -78,62 +78,31 @@
 
         /// <summary>
         /// time complexity  - average - O(n log(n)); best - O(n log(n)); worst - O(n^2)
-        /// space complexity - O(n log(n))
+        /// space complexity - O(n)
         /// </summary>
-        public static void QuickSort(int[] array, int? endIndex = null)
+        public static void QuickSort(int[] array, int fromIndex, int toIndex)
         {
-            if (endIndex == null) endIndex = array.Length;
+            var subArrayLength = toIndex - fromIndex;
+            if (subArrayLength < 1) return;
 
-            if (endIndex < 2)
+            var pivotIndex = fromIndex + subArrayLength / 2;
+            CommonArrayFunctions.SwapElements(array, pivotIndex, toIndex);
+
+            var swapPointer = fromIndex;
+            for(int i = fromIndex; i < toIndex; i++)
             {
-                return;
-            }
-
-            var pivot = array[endIndex.Value / 2];
-            int[] left = new int[endIndex.Value];
-            int leftLength = 0;
-            int[] center = new int[endIndex.Value];
-            int centerLength = 0;
-            int[] right = new int[endIndex.Value];
-            int rightLength = 0;
-
-            for (int i = 0; i < endIndex; i++)
-            {
-                if (array[i] < pivot)
+                if(array[i] < array[toIndex])
                 {
-                    left[leftLength] = array[i];
-                    leftLength++;
-                }
-                else if (array[i] > pivot)
-                {
-                    right[rightLength] = array[i];
-                    rightLength++;
-                }
-                else
-                {
-                    center[centerLength] = array[i];
-                    centerLength++;
+                    CommonArrayFunctions.SwapElements(array, swapPointer, i);
+                    swapPointer++;
                 }
             }
 
-            QuickSort(left, leftLength);
-            QuickSort(right, rightLength);
+            CommonArrayFunctions.SwapElements(array, swapPointer, toIndex);
 
-            for(int i=0; i< endIndex; i++)
-            {
-                if (i < leftLength)
-                {
-                    array[i] = left[i];
-                }
-                else if (i < leftLength + centerLength)
-                {
-                    array[i] = center[i-leftLength];
-                }
-                else
-                {
-                    array[i] = right[i - leftLength - centerLength];
-                }
-            }
+            QuickSort(array, fromIndex, swapPointer-1);
+            QuickSort(array, swapPointer+1, toIndex);
         }
+
     }
 }

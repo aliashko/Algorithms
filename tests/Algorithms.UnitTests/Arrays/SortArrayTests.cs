@@ -29,7 +29,7 @@ namespace UnitTests.Arrays
         [TestMethod]
         public void QuickSortTest()
         {
-            TestSort((arr)=>SortArray.QuickSort(arr, null));
+            TestSort((arr) => SortArray.QuickSort(arr, 0, arr.Length - 1));
         }
 
         private void TestSort(Action<int[]> sortMethod)

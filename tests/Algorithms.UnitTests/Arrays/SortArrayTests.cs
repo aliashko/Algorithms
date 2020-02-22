@@ -32,12 +32,40 @@ namespace UnitTests.Arrays
             TestSort((arr) => SortArray.QuickSort(arr, 0, arr.Length - 1));
         }
 
+        [TestMethod]
+        public void BubbleSortTest()
+        {
+            TestSort(SortArray.BubbleSort);
+        }
+
+        [TestMethod]
+        public void ShakerSortTest()
+        {
+            TestSort(SortArray.ShakerSort);
+        }
+
+        [TestMethod]
+        public void DutchProblemSortTest()
+        {
+            var random = new Random();
+            for (int i = 0; i < 10000; i++)
+            {
+                var array = CommonArrayFunctions.InitIntArray(i/100 + 1, 0, 2);
+                var sortedArray = new int[array.Length];
+                array.CopyTo(sortedArray, 0);
+
+                SortArray.DutchProblemSort(sortedArray);
+
+                Assert.IsTrue(IsArraysEqual(sortedArray, array.OrderBy(x => x).ToArray()));
+            }
+        }
+
         private void TestSort(Action<int[]> sortMethod)
         {
             var random = new Random();
             for (int i = 0; i < 10000; i++)
             {
-                var array = CommonArrayFunctions.InitIntArray(i/100, 0, random.Next(0, i));
+                var array = CommonArrayFunctions.InitIntArray(i/100+1, 0, random.Next(0, i));
                 var sortedArray = new int[array.Length];
                 array.CopyTo(sortedArray, 0);
 

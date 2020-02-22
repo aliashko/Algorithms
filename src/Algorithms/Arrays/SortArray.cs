@@ -104,5 +104,85 @@
             QuickSort(array, swapPointer+1, toIndex);
         }
 
+        /// <summary>
+        /// time complexity  - O(n)
+        /// space complexity - O(1)
+        /// </summary>
+        public static void DutchProblemSort(int[] array)
+        {
+            int lowIndex = 0, midIndex = 0;
+            int hiIndex = array.Length - 1;
+
+            while(midIndex <= hiIndex)
+            {
+                switch (array[midIndex])
+                {
+                    case 0:
+                        CommonArrayFunctions.SwapElements(array, midIndex, lowIndex);
+                        lowIndex++;
+                        midIndex++;
+                        break;
+                    case 1:
+                        midIndex++;
+                        break;
+                    case 2:
+                        CommonArrayFunctions.SwapElements(array, midIndex, hiIndex);
+                        hiIndex--;
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// time complexity  - O(n^2)
+        /// space complexity - O(1)
+        /// </summary>
+        public static void BubbleSort(int[] array)
+        {
+            bool? swapped = null;
+            while (swapped != false)
+            {
+                swapped = false;
+                for (int i = 1; i < array.Length; i++)
+                {
+                    if (array[i] < array[i - 1])
+                    {
+                        CommonArrayFunctions.SwapElements(array, i, i - 1);
+                        swapped = true;
+                    }
+                }
+            }
+        }
+
+        public static void ShakerSort(int[] array)
+        {
+            for (var i = 0; i < array.Length / 2; i++)
+            {
+                var swapFlag = false;
+
+                for (var j = i; j < array.Length - i - 1; j++)
+                {
+                    if (array[j] > array[j + 1])
+                    {
+                        CommonArrayFunctions.SwapElements(array, j, j + 1);
+                        swapFlag = true;
+                    }
+                }
+
+                for (var j = array.Length - 2 - i; j > i; j--)
+                {
+                    if (array[j - 1] > array[j])
+                    {
+                        CommonArrayFunctions.SwapElements(array, j - 1, j);
+                        swapFlag = true;
+                    }
+                }
+
+                if (!swapFlag)
+                {
+                    break;
+                }
+            }
+        }
     }
 }

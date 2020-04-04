@@ -33,26 +33,56 @@
         /// time complexity  - O(n log(n))
         /// space complexity - O(n log(n))
         /// </summary>
-        public static void MergeSort(int[] array)
+        public static void MergeSort(int[] array, int fromIndex, int toIndex)
         {
-            var array1 = new int[array.Length / 2];
-            var array2 = new int[array.Length - array1.Length];
-            for (int i = 0; i < array.Length; i++)
+            if(toIndex <= fromIndex)
             {
-                if (i < array1.Length)
+                return;
+            }
+
+            var middleIndex = (fromIndex + toIndex) / 2;
+            MergeSort(array, fromIndex, middleIndex);
+            MergeSort(array, middleIndex + 1, toIndex);
+
+            // Merging two sub-arrays
+            var subArrayLength = toIndex - fromIndex + 1;
+            var sortedPartArray = new int[subArrayLength];
+            var leftPartIndex = fromIndex;
+            var rightPartIndex = middleIndex + 1;
+            var index = 0;
+
+            while ((leftPartIndex <= middleIndex) && (rightPartIndex <= toIndex))
+            {
+                if (array[leftPartIndex] < array[rightPartIndex])
                 {
-                    array1[i] = array[i];
+                    sortedPartArray[index] = array[leftPartIndex];
+                    leftPartIndex++;
                 }
                 else
                 {
-                    array2[i - array1.Length] = array[i];
+                    sortedPartArray[index] = array[rightPartIndex];
+                    rightPartIndex++;
                 }
+
+                index++;
             }
 
-            MergeSort(array1);
-            MergeSort(array2);
+            for (var i = leftPartIndex; i <= middleIndex; i++)
+            {
+                sortedPartArray[index] = array[i];
+                index++;
+            }
 
-            CommonArrayFunctions.ConcatSortedArrays(array, array1, array2);
+            for (var i = rightPartIndex; i <= toIndex; i++)
+            {
+                sortedPartArray[index] = array[i];
+                index++;
+            }
+
+            for (int i = 0; i < sortedPartArray.Length; i++)
+            {
+                array[fromIndex + i] = sortedPartArray[i];
+            }
         }
 
         /// <summary>
@@ -105,6 +135,37 @@
         }
 
         /// <summary>
+        /// time complexity  - average - O(n log(n)); best - O(n); worst - O(n^2)
+        /// space complexity - O(n)
+        /// </summary>
+        public static int QuickSelectionSort(int[] array, int k, int fromIndex, int toIndex)
+        {
+            //Partitioning
+            var swapPointer = fromIndex;
+            for (int i = fromIndex; i <= toIndex; i++)
+            {
+                if (array[i] < array[toIndex])
+                {
+                    CommonArrayFunctions.SwapElements(array, swapPointer, i);
+                    swapPointer++;
+                }
+            }
+
+            CommonArrayFunctions.SwapElements(array, swapPointer, toIndex);
+
+            if (swapPointer > k)
+            {
+                return QuickSelectionSort(array, k, fromIndex, swapPointer - 1);
+            }
+            if (swapPointer < k)
+            {
+                return QuickSelectionSort(array, k, swapPointer + 1, toIndex);
+            }
+
+            return array[k];
+        }
+
+        /// <summary>
         /// time complexity  - O(n)
         /// space complexity - O(1)
         /// </summary>
@@ -154,6 +215,10 @@
             }
         }
 
+        /// <summary>
+        /// time complexity  - average - O(n^2); best - O(n); worst - O(n^2)
+        /// space complexity - O(1)
+        /// </summary>
         public static void ShakerSort(int[] array)
         {
             for (var i = 0; i < array.Length / 2; i++)

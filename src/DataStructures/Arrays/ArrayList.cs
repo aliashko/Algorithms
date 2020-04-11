@@ -29,6 +29,21 @@ namespace DataStructures.Arrays
             currentIndex++;
         }
 
+        public void AddRange(T[] elements)
+        {
+            if(currentIndex + elements.Length >= data.Length)
+            {
+                ExpandDataArray(elements.Length);
+            }
+
+            for (var i = 0; i < elements.Length; i++)
+            {
+                data[currentIndex+i] = elements[i];
+            }
+
+            currentIndex += elements.Length;
+        }
+
         /// <summary>
         /// O(1)
         /// </summary>
@@ -78,9 +93,15 @@ namespace DataStructures.Arrays
             }
         }
 
-        private void ExpandDataArray()
+        private void ExpandDataArray(int? minimumCapacityToAdd = null)
         {
-            var expandedData = new T[data.Length * 2];
+            var newCapacity = data.Length * 2;
+            if(newCapacity < data.Length + minimumCapacityToAdd)
+            {
+                newCapacity += minimumCapacityToAdd.Value;
+            }
+
+            var expandedData = new T[newCapacity];
 
             // This place can be optimized by using standard method. It uses memcpy analog and much faster
             // data.CopyTo(expandedData, 0);
@@ -90,6 +111,17 @@ namespace DataStructures.Arrays
             }
             
             data = expandedData;
+        }
+
+        public T[] ToArray()
+        {
+            var array = new T[currentIndex];
+            for (var i = 0; i < currentIndex; i++)
+            {
+                array[i] = data[i];
+            }
+
+            return array;
         }
 
         public T this[int key]

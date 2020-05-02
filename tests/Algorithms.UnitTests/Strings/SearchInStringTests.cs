@@ -12,11 +12,11 @@ namespace UnitTests.Arrays
     public class SearchInStringTests
     {
         [TestMethod]
-        public void TestNativeSearch() => TestSearch(SearchInString.NativeSearch);
+        public void TestNativeSearch() => TestSearch(SearchInString.NaiveSearch);
 
         [TestMethod]
         public void TestRabinKarpSearch() => TestSearch(SearchInString.RabinKarpSearch);
-
+        
         private void TestSearch(Func<string, string, ArrayList<int>> searchAlgorythm)
         {
             var random = new Random();

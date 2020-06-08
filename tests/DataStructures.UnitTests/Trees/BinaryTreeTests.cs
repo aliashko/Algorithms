@@ -44,5 +44,12 @@ namespace DataStructures.UnitTests.Trees
             var nodes = sampleBinaryTree.TraverseTreePreorder(sampleBinaryTree.RootNode);
             CollectionAssert.AreEqual(new int[] { 10,5,2,7,6,8,20,30,25,35 }, nodes);
         }
+
+        [TestMethod]
+        public void LevelOrderTraversalReturnsCorrectNodesOrder()
+        {
+            var nodes = sampleBinaryTree.TraverseTreeLevelOrder(sampleBinaryTree.RootNode);
+            CollectionAssert.AreEqual(new int[] { 10, 5, 20, 2, 7, 30, 6, 8, 25, 35 }, nodes);
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace DataStructures.Trees
         public BinaryTreeNode<T> RootNode { get; }
 
         /// <summary>
-        /// Given a binary tree, return its nodes according to the "bottom-up" postorder traversal.
+        /// Given a binary tree, return its nodes according to the "bottom-up" postorder traversal. From the deep to root
         /// Usings: delete tree
         /// </summary>
         public T[] TraverseTreePostorder(BinaryTreeNode<T> node)
@@ -31,7 +31,7 @@ namespace DataStructures.Trees
 
         /// <summary>
         /// Given a binary tree, return its nodes in inorder
-        /// Usings: get sorted sequence in BST
+        /// Usings: get sorted sequence in Binary Search Tree
         /// </summary>
         public T[] TraverseTreeInorder(BinaryTreeNode<T> node)
         {
@@ -49,6 +49,7 @@ namespace DataStructures.Trees
 
         /// <summary>
         /// Given a binary tree, return its nodes in preorder
+        /// Usings:
         /// </summary>
         public T[] TraverseTreePreorder(BinaryTreeNode<T> node)
         {
@@ -59,6 +60,28 @@ namespace DataStructures.Trees
                 elementsList.Add(node.Value);
                 elementsList.AddRange(TraverseTreePreorder(node.Left));                
                 elementsList.AddRange(TraverseTreePreorder(node.Right));
+            }
+
+            return elementsList.ToArray();
+        }
+
+        /// <summary>
+        /// Given a binary tree, return its nodes in level order (traversal in width)
+        /// Usings:
+        /// </summary>
+        public T[] TraverseTreeLevelOrder(BinaryTreeNode<T> node)
+        {
+            var elementsList = new ArrayList<T>();
+
+            var queue = new Queue<BinaryTreeNode<T>>();
+            var currentNode = node;
+            while(currentNode != null)
+            {
+                elementsList.Add(currentNode.Value);
+                if (currentNode.Left != null)queue.Enqueue(currentNode.Left);
+                if (currentNode.Right != null) queue.Enqueue(currentNode.Right);
+
+                currentNode = queue.Count() != 0 ? queue.Dequeue() : null;
             }
 
             return elementsList.ToArray();

@@ -13,9 +13,10 @@ namespace DataStructures.Trees
 
         /// <summary>
         /// Given a binary tree, return its nodes according to the "bottom-up" postorder traversal. From the deep to root
-        /// Usings: delete tree
+        /// aka Topological search
+        /// Usings: deleting tree; creating sequence of dependencies (to resolve all of them in right order)
         /// </summary>
-        public T[] TraverseTreePostorder(BinaryTreeNode<T> node)
+        public static T[] TraverseTreePostorder(BinaryTreeNode<T> node)
         {
             var elementsList = new ArrayList<T>();
 
@@ -33,7 +34,7 @@ namespace DataStructures.Trees
         /// Given a binary tree, return its nodes in inorder
         /// Usings: get sorted sequence in Binary Search Tree
         /// </summary>
-        public T[] TraverseTreeInorder(BinaryTreeNode<T> node)
+        public static T[] TraverseTreeInorder(BinaryTreeNode<T> node)
         {
             var elementsList = new ArrayList<T>();
 
@@ -49,9 +50,9 @@ namespace DataStructures.Trees
 
         /// <summary>
         /// Given a binary tree, return its nodes in preorder
-        /// Usings:
+        /// Usings: copy of the tree
         /// </summary>
-        public T[] TraverseTreePreorder(BinaryTreeNode<T> node)
+        public static T[] TraverseTreePreorder(BinaryTreeNode<T> node)
         {
             var elementsList = new ArrayList<T>();
 
@@ -67,9 +68,9 @@ namespace DataStructures.Trees
 
         /// <summary>
         /// Given a binary tree, return its nodes in level order (traversal in width)
-        /// Usings:
+        /// Usings: finding a shortest path
         /// </summary>
-        public T[] TraverseTreeLevelOrder(BinaryTreeNode<T> node)
+        public static T[] TraverseTreeLevelOrder(BinaryTreeNode<T> node)
         {
             var elementsList = new ArrayList<T>();
 

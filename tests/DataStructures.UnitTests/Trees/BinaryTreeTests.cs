@@ -27,28 +27,28 @@ namespace DataStructures.UnitTests.Trees
         [TestMethod]
         public void PostOrderTraversalReturnsCorrectNodesOrder()
         {
-            var nodes = sampleBinaryTree.TraverseTreePostorder(sampleBinaryTree.RootNode);
+            var nodes = BinaryTree<int>.TraverseTreePostorder(sampleBinaryTree.RootNode);
             CollectionAssert.AreEqual(new int[] { 2,6,8,7,5,25,35,30,20,10 }, nodes);
         }
 
         [TestMethod]
         public void InorderTraversalReturnsCorrectNodesOrder()
         {
-            var nodes = sampleBinaryTree.TraverseTreeInorder(sampleBinaryTree.RootNode);
+            var nodes = BinaryTree<int>.TraverseTreeInorder(sampleBinaryTree.RootNode);
             CollectionAssert.AreEqual(new int[] { 2,5,6,7,8,10,20,25,30,35 }, nodes);
         }
 
         [TestMethod]
         public void PreorderTraversalReturnsCorrectNodesOrder()
         {
-            var nodes = sampleBinaryTree.TraverseTreePreorder(sampleBinaryTree.RootNode);
+            var nodes = BinaryTree<int>.TraverseTreePreorder(sampleBinaryTree.RootNode);
             CollectionAssert.AreEqual(new int[] { 10,5,2,7,6,8,20,30,25,35 }, nodes);
         }
 
         [TestMethod]
         public void LevelOrderTraversalReturnsCorrectNodesOrder()
         {
-            var nodes = sampleBinaryTree.TraverseTreeLevelOrder(sampleBinaryTree.RootNode);
+            var nodes = BinaryTree<int>.TraverseTreeLevelOrder(sampleBinaryTree.RootNode);
             CollectionAssert.AreEqual(new int[] { 10, 5, 20, 2, 7, 30, 6, 8, 25, 35 }, nodes);
         }
     }

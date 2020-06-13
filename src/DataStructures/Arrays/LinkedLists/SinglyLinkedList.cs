@@ -1,6 +1,9 @@
-﻿namespace DataStructures.Arrays.LinkedLists
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace DataStructures.Arrays.LinkedLists
 {
-    public class SinglyLinkedList<T>
+    public class SinglyLinkedList<T> : IEnumerable<T>
     {
         private SinglyLinkedListNode<T> HeadNode;
 
@@ -57,6 +60,21 @@
             //        node.SetNextNode(nextNode.GetNextNode());
             //    }
             //}            
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            var currentNode = HeadNode;
+            while (currentNode != null)
+            {
+                yield return currentNode.Data;
+                currentNode = currentNode.GetNextNode();
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

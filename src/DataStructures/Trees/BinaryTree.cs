@@ -111,5 +111,10 @@ namespace DataStructures.Trees
         {
             Right = new BinaryTreeNode<T>(nodeValue);
         }
+
+        public bool IsLeaf()
+        {
+            return Left == null && Right == null;
+        }
     }
 }

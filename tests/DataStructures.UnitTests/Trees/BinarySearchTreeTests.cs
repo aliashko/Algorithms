@@ -37,6 +37,15 @@ namespace DataStructures.UnitTests.Trees
         }
 
         [TestMethod]
+        public void NodeCanBeFoundInBSTIterative()
+        {
+            foreach (var value in sampleBSTvalues)
+            {
+                Assert.AreEqual(value, sampleBinarySearchTree.SearchNodeIterative(value).Value);
+            }
+        }
+
+        [TestMethod]
         public void UnexistingNodeCannotBeFoundInBST()
         {
             foreach (var value in sampleBSTvalues)

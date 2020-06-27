@@ -17,6 +17,33 @@ namespace DataStructures.Trees
             return SearchNodeFrom(RootNode, value);
         }
 
+        /// <summary>
+        /// O(log(n))
+        /// </summary>
+        public BinaryTreeNode<T> SearchNodeIterative(T value)
+        {
+            var rootNode = RootNode;
+            while(rootNode != null)
+            {
+                var compareResult = rootNode.Value.CompareTo(value);
+
+                if (compareResult > 0)
+                {
+                    rootNode = rootNode.Left;
+                }
+                else if (compareResult < 0)
+                {
+                    rootNode = rootNode.Right;
+                }
+                else
+                {
+                    return rootNode;
+                }
+            }
+
+            return null;
+        }
+
         private BinaryTreeNode<T> SearchNodeFrom(BinaryTreeNode<T> rootNode, T value, bool returnLastMatchingNode = false)
         {
             if(rootNode == null)

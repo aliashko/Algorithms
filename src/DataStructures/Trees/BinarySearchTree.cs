@@ -63,5 +63,59 @@ namespace DataStructures.Trees
             // The tree is already contain element
             return nodeParent;
         }
+
+        /// <summary>
+        /// O(n)
+        /// </summary>
+        public void RemoveNode(T value)
+        {
+            RootNode = RemoveNodeFrom(RootNode, value);
+        }
+
+        private BinaryTreeNode<T> RemoveNodeFrom(BinaryTreeNode<T> rootNode, T value)
+        {
+            if (rootNode == null) return rootNode; // Base case
+
+            var compareResult = rootNode.Value.CompareTo(value);
+
+            if (compareResult > 0)
+            {
+                rootNode.ReplaceLeftNodeWith(RemoveNodeFrom(rootNode.Left, value));
+            }
+            else if (compareResult < 0)
+            {
+                rootNode.ReplaceRightNodeWith(RemoveNodeFrom(rootNode.Right, value));
+            }
+            else
+            {
+                // This is the removing element
+                if(rootNode.Left == null)
+                {
+                    return rootNode.Right;
+                }
+                else if(rootNode.Right == null)
+                {
+                    return rootNode.Left;
+                }
+
+                var minNodeInSubtree = SearchMinNode(rootNode.Right);
+                rootNode.SetValue(minNodeInSubtree.Value);
+
+                rootNode.ReplaceRightNodeWith(RemoveNodeFrom(rootNode.Right, minNodeInSubtree.Value));
+            }
+
+            return rootNode;
+        }
+
+        private BinaryTreeNode<T> SearchMinNode(BinaryTreeNode<T> rootNode)
+        {
+            var minNode = rootNode;
+            while(minNode.Left != null)
+            {
+                minNode = minNode.Left;
+            }
+
+            return minNode;
+        }
     }
 }

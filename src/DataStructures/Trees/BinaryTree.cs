@@ -9,7 +9,7 @@ namespace DataStructures.Trees
             RootNode = new BinaryTreeNode<T>(rootNodeValue);
         }
 
-        public BinaryTreeNode<T> RootNode { get; }
+        public BinaryTreeNode<T> RootNode { get; protected set; }
 
         /// <summary>
         /// Given a binary tree, return its nodes according to the "bottom-up" postorder traversal. From the deep to root
@@ -96,7 +96,7 @@ namespace DataStructures.Trees
             Value = nodeValue;
         }
 
-        public T Value { get; }
+        public T Value { get; private set; }
 
         public BinaryTreeNode<T> Left { get; private set; }
 
@@ -110,6 +110,21 @@ namespace DataStructures.Trees
         public void SetRightNode(T nodeValue)
         {
             Right = new BinaryTreeNode<T>(nodeValue);
+        }
+
+        public void ReplaceLeftNodeWith(BinaryTreeNode<T> node)
+        {
+            Left = node;
+        }
+
+        public void ReplaceRightNodeWith(BinaryTreeNode<T> node)
+        {
+            Right = node;
+        }
+
+        public void SetValue(T nodeValue)
+        {
+            Value = nodeValue;
         }
 
         public bool IsLeaf()

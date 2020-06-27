@@ -61,6 +61,59 @@ namespace DataStructures.UnitTests.Trees
             }
         }
 
+        [TestMethod]
+        public void NodeWithoutChildrenCanBeRemovedFromBST()
+        {
+            sampleBinarySearchTree.RemoveNode(8);
 
+            var removedNode = sampleBinarySearchTree.SearchNode(8);
+            var parentOfRemovedNode = sampleBinarySearchTree.SearchNode(7);
+
+            Assert.IsNull(removedNode);
+            Assert.IsNull(parentOfRemovedNode.Right);
+            Assert.AreEqual(6, parentOfRemovedNode.Left.Value);
+        }
+
+        [TestMethod]
+        public void NodeWithOneChildCanBeRemovedFromBST()
+        {
+            sampleBinarySearchTree.RemoveNode(20);
+
+            var removedNode = sampleBinarySearchTree.SearchNode(20);
+            var parentOfRemovedNode = sampleBinarySearchTree.SearchNode(10);
+
+            Assert.IsNull(removedNode);
+            Assert.AreEqual(30, parentOfRemovedNode.Right.Value);
+            Assert.AreEqual(25, parentOfRemovedNode.Right.Left.Value);
+        }
+
+        [TestMethod]
+        public void NodeWithTwoChildrenCanBeRemovedFromBST()
+        {
+            sampleBinarySearchTree.RemoveNode(5);
+
+            var removedNode = sampleBinarySearchTree.SearchNode(5);
+            var parentOfRemovedNode = sampleBinarySearchTree.SearchNode(10);
+
+            Assert.IsNull(removedNode);
+            Assert.AreEqual(6, parentOfRemovedNode.Left.Value);
+            Assert.AreEqual(20, parentOfRemovedNode.Right.Value);
+            Assert.AreEqual(2, parentOfRemovedNode.Left.Left.Value);
+            Assert.AreEqual(7, parentOfRemovedNode.Left.Right.Value);
+            Assert.IsNull(parentOfRemovedNode.Left.Right.Left);
+        }
+
+        [TestMethod]
+        public void RootNodeCanBeRemovedFromBST()
+        {
+            sampleBinarySearchTree.RemoveNode(10);
+
+            var removedNode = sampleBinarySearchTree.SearchNode(10);
+
+            Assert.IsNull(removedNode);
+            Assert.AreEqual(20, sampleBinarySearchTree.RootNode.Value);
+            Assert.AreEqual(5, sampleBinarySearchTree.RootNode.Left.Value);
+            Assert.AreEqual(30, sampleBinarySearchTree.RootNode.Right.Value);
+        }
     }
 }

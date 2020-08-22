@@ -10,7 +10,7 @@ namespace DataStructures.Trees
         }
 
         /// <summary>
-        /// O(log(n))
+        /// worst case - O(n). average - O(log(n))
         /// </summary>
         public BinaryTreeNode<T> SearchNode(T value)
         {
@@ -18,7 +18,7 @@ namespace DataStructures.Trees
         }
 
         /// <summary>
-        /// O(log(n))
+        /// worst case - O(n). average - O(log(n))
         /// </summary>
         public BinaryTreeNode<T> SearchNodeIterative(T value)
         {

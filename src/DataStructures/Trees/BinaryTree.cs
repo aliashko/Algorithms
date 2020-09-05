@@ -4,9 +4,13 @@ namespace DataStructures.Trees
 {
     public class BinaryTree<T>
     {
-        public BinaryTree(T rootNodeValue)
+        public BinaryTree()
         {
-            RootNode = new BinaryTreeNode<T>(rootNodeValue);
+        }
+
+        public BinaryTree(T rootNodeKey)
+        {
+            RootNode = new BinaryTreeNode<T>(rootNodeKey);
         }
 
         public BinaryTreeNode<T> RootNode { get; protected set; }
@@ -24,7 +28,7 @@ namespace DataStructures.Trees
             {
                 elementsList.AddRange(TraverseTreePostorder(node.Left));
                 elementsList.AddRange(TraverseTreePostorder(node.Right));
-                elementsList.Add(node.Value);
+                elementsList.Add(node.Key);
             }
 
             return elementsList.ToArray();
@@ -41,7 +45,7 @@ namespace DataStructures.Trees
             if (node != null)
             {
                 elementsList.AddRange(TraverseTreeInorder(node.Left));
-                elementsList.Add(node.Value);
+                elementsList.Add(node.Key);
                 elementsList.AddRange(TraverseTreeInorder(node.Right));                
             }
 
@@ -58,7 +62,7 @@ namespace DataStructures.Trees
 
             if (node != null)
             {
-                elementsList.Add(node.Value);
+                elementsList.Add(node.Key);
                 elementsList.AddRange(TraverseTreePreorder(node.Left));                
                 elementsList.AddRange(TraverseTreePreorder(node.Right));
             }
@@ -78,7 +82,7 @@ namespace DataStructures.Trees
             var currentNode = node;
             while(currentNode != null)
             {
-                elementsList.Add(currentNode.Value);
+                elementsList.Add(currentNode.Key);
                 if (currentNode.Left != null)queue.Enqueue(currentNode.Left);
                 if (currentNode.Right != null) queue.Enqueue(currentNode.Right);
 
@@ -86,50 +90,6 @@ namespace DataStructures.Trees
             }
 
             return elementsList.ToArray();
-        }
-    }
-
-    public class BinaryTreeNode<T>
-    {
-        public BinaryTreeNode(T nodeValue)
-        {
-            Value = nodeValue;
-        }
-
-        public T Value { get; private set; }
-
-        public BinaryTreeNode<T> Left { get; private set; }
-
-        public BinaryTreeNode<T> Right { get; private set; }
-
-        public void SetLeftNode(T nodeValue)
-        {
-            Left = new BinaryTreeNode<T>(nodeValue);
-        }
-
-        public void SetRightNode(T nodeValue)
-        {
-            Right = new BinaryTreeNode<T>(nodeValue);
-        }
-
-        public void ReplaceLeftNodeWith(BinaryTreeNode<T> node)
-        {
-            Left = node;
-        }
-
-        public void ReplaceRightNodeWith(BinaryTreeNode<T> node)
-        {
-            Right = node;
-        }
-
-        public void SetValue(T nodeValue)
-        {
-            Value = nodeValue;
-        }
-
-        public bool IsLeaf()
-        {
-            return Left == null && Right == null;
         }
     }
 }

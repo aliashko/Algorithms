@@ -2,30 +2,39 @@
 
 namespace DataStructures.Trees
 {
-    public class BinarySearchTree<T> : BinaryTree<T> 
+    public class BinarySearchTree<T> : BinaryTree<T>
         where T: IComparable
     {
-        public BinarySearchTree(T rootNodeValue) : base(rootNodeValue)
+        public BinarySearchTree()
         {
+        }
+
+        public BinarySearchTree(T rootNodeKey) : base(rootNodeKey)
+        {
+        }
+
+        public BinaryTreeNode<T> GetRootNode()
+        {
+            return RootNode;
         }
 
         /// <summary>
         /// worst case - O(n). average - O(log(n))
         /// </summary>
-        public BinaryTreeNode<T> SearchNode(T value)
+        public BinaryTreeNode<T> SearchNode(T key)
         {
-            return SearchNodeFrom(RootNode, value);
+            return SearchNodeFrom(RootNode, key);
         }
 
         /// <summary>
         /// worst case - O(n). average - O(log(n))
         /// </summary>
-        public BinaryTreeNode<T> SearchNodeIterative(T value)
+        public BinaryTreeNode<T> SearchNodeIterative(T key)
         {
             var rootNode = RootNode;
             while(rootNode != null)
             {
-                var compareResult = rootNode.Value.CompareTo(value);
+                var compareResult = rootNode.Key.CompareTo(key);
 
                 if (compareResult > 0)
                 {
@@ -44,24 +53,24 @@ namespace DataStructures.Trees
             return null;
         }
 
-        private BinaryTreeNode<T> SearchNodeFrom(BinaryTreeNode<T> rootNode, T value, bool returnLastMatchingNode = false)
+        private BinaryTreeNode<T> SearchNodeFrom(BinaryTreeNode<T> rootNode, T key, bool returnLastMatchingNode = false)
         {
             if(rootNode == null)
             {
                 return null;
             }
 
-            var compareResult = rootNode.Value.CompareTo(value);
+            var compareResult = rootNode.Key.CompareTo(key);
 
             if (compareResult > 0)
             {
                 if (rootNode.Left == null && returnLastMatchingNode) return rootNode;
-                return SearchNodeFrom(rootNode.Left, value, returnLastMatchingNode);
+                return SearchNodeFrom(rootNode.Left, key, returnLastMatchingNode);
             }
             else if (compareResult < 0)
             {
                 if (rootNode.Right == null && returnLastMatchingNode) return rootNode;
-                return SearchNodeFrom(rootNode.Right, value, returnLastMatchingNode);
+                return SearchNodeFrom(rootNode.Right, key, returnLastMatchingNode);
             }
 
             return rootNode;
@@ -70,20 +79,20 @@ namespace DataStructures.Trees
         /// <summary>
         /// O(log(n))
         /// </summary>
-        public BinaryTreeNode<T> Insert(T value)
+        public BinaryTreeNode<T> Insert(T key)
         {
-            var nodeParent = SearchNodeFrom(RootNode, value, true);
+            var nodeParent = SearchNodeFrom(RootNode, key, true);
 
-            var compareResult = nodeParent.Value.CompareTo(value);
+            var compareResult = nodeParent.Key.CompareTo(key);
 
             if (compareResult > 0)
             {
-                nodeParent.SetLeftNode(value);
+                nodeParent.SetLeftNode(key);
                 return nodeParent.Left;
             }
             else if (compareResult < 0)
             {
-                nodeParent.SetRightNode(value);
+                nodeParent.SetRightNode(key);
                 return nodeParent.Right;
             }
 
@@ -94,24 +103,24 @@ namespace DataStructures.Trees
         /// <summary>
         /// O(n)
         /// </summary>
-        public void RemoveNode(T value)
+        public void RemoveNode(T key)
         {
-            RootNode = RemoveNodeFrom(RootNode, value);
+            RootNode = RemoveNodeFrom(RootNode, key);
         }
 
-        private BinaryTreeNode<T> RemoveNodeFrom(BinaryTreeNode<T> rootNode, T value)
+        private BinaryTreeNode<T> RemoveNodeFrom(BinaryTreeNode<T> rootNode, T key)
         {
             if (rootNode == null) return rootNode; // Base case
 
-            var compareResult = rootNode.Value.CompareTo(value);
+            var compareResult = rootNode.Key.CompareTo(key);
 
             if (compareResult > 0)
             {
-                rootNode.ReplaceLeftNodeWith(RemoveNodeFrom(rootNode.Left, value));
+                rootNode.ReplaceLeftNodeWith(RemoveNodeFrom(rootNode.Left, key));
             }
             else if (compareResult < 0)
             {
-                rootNode.ReplaceRightNodeWith(RemoveNodeFrom(rootNode.Right, value));
+                rootNode.ReplaceRightNodeWith(RemoveNodeFrom(rootNode.Right, key));
             }
             else
             {
@@ -126,9 +135,9 @@ namespace DataStructures.Trees
                 }
 
                 var minNodeInSubtree = SearchMinNode(rootNode.Right);
-                rootNode.SetValue(minNodeInSubtree.Value);
+                rootNode.SetKey(minNodeInSubtree.Key);
 
-                rootNode.ReplaceRightNodeWith(RemoveNodeFrom(rootNode.Right, minNodeInSubtree.Value));
+                rootNode.ReplaceRightNodeWith(RemoveNodeFrom(rootNode.Right, minNodeInSubtree.Key));
             }
 
             return rootNode;

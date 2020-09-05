@@ -6,23 +6,23 @@ namespace DataStructures.UnitTests.Trees
     [TestClass]
     public class BinarySearchTreeTests
     {
-        private BinarySearchTree<int> sampleBinarySearchTree;
-        int[] sampleBSTvalues;
+        protected BinarySearchTree<int> sampleBinarySearchTree;
+        protected int[] sampleBSTvalues;
 
         [TestInitialize]
         public void Setup()
         {
             sampleBinarySearchTree = new BinarySearchTree<int>(10);
-            sampleBinarySearchTree.RootNode.SetLeftNode(5);
-            sampleBinarySearchTree.RootNode.Left.SetLeftNode(2);
-            sampleBinarySearchTree.RootNode.Left.SetRightNode(7);
-            sampleBinarySearchTree.RootNode.Left.Right.SetLeftNode(6);
-            sampleBinarySearchTree.RootNode.Left.Right.SetRightNode(8);
+            sampleBinarySearchTree.GetRootNode().SetLeftNode(5);
+            sampleBinarySearchTree.GetRootNode().Left.SetLeftNode(2);
+            sampleBinarySearchTree.GetRootNode().Left.SetRightNode(7);
+            sampleBinarySearchTree.GetRootNode().Left.Right.SetLeftNode(6);
+            sampleBinarySearchTree.GetRootNode().Left.Right.SetRightNode(8);
 
-            sampleBinarySearchTree.RootNode.SetRightNode(20);
-            sampleBinarySearchTree.RootNode.Right.SetRightNode(30);
-            sampleBinarySearchTree.RootNode.Right.Right.SetLeftNode(25);
-            sampleBinarySearchTree.RootNode.Right.Right.SetRightNode(35);
+            sampleBinarySearchTree.GetRootNode().SetRightNode(20);
+            sampleBinarySearchTree.GetRootNode().Right.SetRightNode(30);
+            sampleBinarySearchTree.GetRootNode().Right.Right.SetLeftNode(25);
+            sampleBinarySearchTree.GetRootNode().Right.Right.SetRightNode(35);
 
             sampleBSTvalues = new int[] { 35, 25, 30, 20, 8, 6, 7, 2, 5, 10 };
         }
@@ -32,7 +32,7 @@ namespace DataStructures.UnitTests.Trees
         {
             foreach(var value in sampleBSTvalues)
             {
-                Assert.AreEqual(value, sampleBinarySearchTree.SearchNode(value).Value);
+                Assert.AreEqual(value, sampleBinarySearchTree.SearchNode(value).Key);
             }            
         }
 
@@ -41,7 +41,7 @@ namespace DataStructures.UnitTests.Trees
         {
             foreach (var value in sampleBSTvalues)
             {
-                Assert.AreEqual(value, sampleBinarySearchTree.SearchNodeIterative(value).Value);
+                Assert.AreEqual(value, sampleBinarySearchTree.SearchNodeIterative(value).Key);
             }
         }
 
@@ -63,10 +63,10 @@ namespace DataStructures.UnitTests.Trees
                 bst.Insert(value);
             }
 
-            Assert.AreEqual(15, bst.RootNode.Value);
+            Assert.AreEqual(15, bst.GetRootNode().Key);
             foreach (var value in sampleBSTvalues)
             {
-                Assert.AreEqual(value, bst.SearchNode(value).Value);
+                Assert.AreEqual(value, bst.SearchNode(value).Key);
             }
         }
 
@@ -80,7 +80,7 @@ namespace DataStructures.UnitTests.Trees
 
             Assert.IsNull(removedNode);
             Assert.IsNull(parentOfRemovedNode.Right);
-            Assert.AreEqual(6, parentOfRemovedNode.Left.Value);
+            Assert.AreEqual(6, parentOfRemovedNode.Left.Key);
         }
 
         [TestMethod]
@@ -92,8 +92,8 @@ namespace DataStructures.UnitTests.Trees
             var parentOfRemovedNode = sampleBinarySearchTree.SearchNode(10);
 
             Assert.IsNull(removedNode);
-            Assert.AreEqual(30, parentOfRemovedNode.Right.Value);
-            Assert.AreEqual(25, parentOfRemovedNode.Right.Left.Value);
+            Assert.AreEqual(30, parentOfRemovedNode.Right.Key);
+            Assert.AreEqual(25, parentOfRemovedNode.Right.Left.Key);
         }
 
         [TestMethod]
@@ -105,10 +105,10 @@ namespace DataStructures.UnitTests.Trees
             var parentOfRemovedNode = sampleBinarySearchTree.SearchNode(10);
 
             Assert.IsNull(removedNode);
-            Assert.AreEqual(6, parentOfRemovedNode.Left.Value);
-            Assert.AreEqual(20, parentOfRemovedNode.Right.Value);
-            Assert.AreEqual(2, parentOfRemovedNode.Left.Left.Value);
-            Assert.AreEqual(7, parentOfRemovedNode.Left.Right.Value);
+            Assert.AreEqual(6, parentOfRemovedNode.Left.Key);
+            Assert.AreEqual(20, parentOfRemovedNode.Right.Key);
+            Assert.AreEqual(2, parentOfRemovedNode.Left.Left.Key);
+            Assert.AreEqual(7, parentOfRemovedNode.Left.Right.Key);
             Assert.IsNull(parentOfRemovedNode.Left.Right.Left);
         }
 
@@ -120,9 +120,9 @@ namespace DataStructures.UnitTests.Trees
             var removedNode = sampleBinarySearchTree.SearchNode(10);
 
             Assert.IsNull(removedNode);
-            Assert.AreEqual(20, sampleBinarySearchTree.RootNode.Value);
-            Assert.AreEqual(5, sampleBinarySearchTree.RootNode.Left.Value);
-            Assert.AreEqual(30, sampleBinarySearchTree.RootNode.Right.Value);
+            Assert.AreEqual(20, sampleBinarySearchTree.GetRootNode().Key);
+            Assert.AreEqual(5, sampleBinarySearchTree.GetRootNode().Left.Key);
+            Assert.AreEqual(30, sampleBinarySearchTree.GetRootNode().Right.Key);
         }
     }
 }

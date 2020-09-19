@@ -53,6 +53,58 @@ namespace DataStructures.UnitTests.Trees
             Assert.IsTrue(IsTreeBalanced((AVLTreeNode<int>)sampleBinarySearchTree.GetRootNode()));
         }
 
+        [TestMethod]
+        public void NodeWithoutChildrenCanBeRemovedFromBST()
+        {
+            sampleBinarySearchTree.RemoveNode(8);
+
+            var removedNode = sampleBinarySearchTree.SearchNode(8);
+            var parentOfRemovedNode = sampleBinarySearchTree.SearchNode(10);
+
+            Assert.IsNull(removedNode);
+            Assert.IsNull(parentOfRemovedNode.Left);
+            Assert.AreEqual(16, parentOfRemovedNode.Right.Key);
+        }
+
+        [TestMethod]
+        public void NodeWithOneChildCanBeRemovedFromBST()
+        {
+            sampleBinarySearchTree.Insert(2);
+            sampleBinarySearchTree.RemoveNode(3);
+
+            var removedNode = sampleBinarySearchTree.SearchNode(3);
+            var parentOfRemovedNode = sampleBinarySearchTree.SearchNode(5);
+
+            Assert.IsNull(removedNode);
+            Assert.AreEqual(2, parentOfRemovedNode.Left.Key);
+            Assert.AreEqual(6, parentOfRemovedNode.Right.Key);
+        }
+
+        [TestMethod]
+        public void NodeWithOneChildCanBeRemovedFromBSTWithRebalance()
+        {
+            sampleBinarySearchTree.RemoveNode(3);
+            sampleBinarySearchTree.RemoveNode(5);
+
+            var removedNode = sampleBinarySearchTree.SearchNode(5);
+
+            Assert.IsNull(removedNode);
+            Assert.AreEqual(20, sampleBinarySearchTree.RootNode.Key);
+            Assert.IsTrue(IsTreeBalanced((AVLTreeNode<int>)sampleBinarySearchTree.GetRootNode()));
+        }
+
+        [TestMethod]
+        public void NodeWithTwoChildrenCanBeRemovedFromBST()
+        {
+            sampleBinarySearchTree.RemoveNode(20);
+
+            var removedNode = sampleBinarySearchTree.SearchNode(20);
+
+            Assert.IsNull(removedNode);
+            Assert.AreEqual(25, sampleBinarySearchTree.RootNode.Right.Key);
+            Assert.IsTrue(IsTreeBalanced((AVLTreeNode<int>)sampleBinarySearchTree.GetRootNode()));
+        }
+
         private bool IsTreeBalanced(AVLTreeNode<int> alvTreeNode)
         {
             if(alvTreeNode == null || alvTreeNode.Left == null || alvTreeNode.Right == null) return true;

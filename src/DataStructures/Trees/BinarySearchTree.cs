@@ -87,13 +87,11 @@ namespace DataStructures.Trees
 
             if (compareResult > 0)
             {
-                nodeParent.SetLeftNode(key);
-                return nodeParent.Left;
+                return nodeParent.AddLeftNode(key);
             }
             else if (compareResult < 0)
             {
-                nodeParent.SetRightNode(key);
-                return nodeParent.Right;
+                return nodeParent.AddRightNode(key);
             }
 
             // The tree is already contain element

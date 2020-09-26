@@ -9,7 +9,6 @@ namespace DataStructures.Trees
     public class AVLTree<T> : BinarySearchTree<T>
         where T : IComparable
     {
-
         public new void Insert(T key)
         {
             RootNode = InsertInternally((AVLTreeNode<T>)RootNode, key);

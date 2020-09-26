@@ -13,16 +13,16 @@ namespace DataStructures.UnitTests.Trees
         public void Setup()
         {
             sampleBinarySearchTree = new BinarySearchTree<int>(10);
-            sampleBinarySearchTree.GetRootNode().SetLeftNode(5);
-            sampleBinarySearchTree.GetRootNode().Left.SetLeftNode(2);
-            sampleBinarySearchTree.GetRootNode().Left.SetRightNode(7);
-            sampleBinarySearchTree.GetRootNode().Left.Right.SetLeftNode(6);
-            sampleBinarySearchTree.GetRootNode().Left.Right.SetRightNode(8);
+            sampleBinarySearchTree.GetRootNode().AddLeftNode(5);
+            sampleBinarySearchTree.GetRootNode().Left.AddLeftNode(2);
+            sampleBinarySearchTree.GetRootNode().Left.AddRightNode(7);
+            sampleBinarySearchTree.GetRootNode().Left.Right.AddLeftNode(6);
+            sampleBinarySearchTree.GetRootNode().Left.Right.AddRightNode(8);
 
-            sampleBinarySearchTree.GetRootNode().SetRightNode(20);
-            sampleBinarySearchTree.GetRootNode().Right.SetRightNode(30);
-            sampleBinarySearchTree.GetRootNode().Right.Right.SetLeftNode(25);
-            sampleBinarySearchTree.GetRootNode().Right.Right.SetRightNode(35);
+            sampleBinarySearchTree.GetRootNode().AddRightNode(20);
+            sampleBinarySearchTree.GetRootNode().Right.AddRightNode(30);
+            sampleBinarySearchTree.GetRootNode().Right.Right.AddLeftNode(25);
+            sampleBinarySearchTree.GetRootNode().Right.Right.AddRightNode(35);
 
             sampleBSTvalues = new int[] { 35, 25, 30, 20, 8, 6, 7, 2, 5, 10 };
         }

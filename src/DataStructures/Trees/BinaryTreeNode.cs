@@ -2,9 +2,10 @@
 {
     public class BinaryTreeNode<T>
     {
-        public BinaryTreeNode(T key)
+        public BinaryTreeNode(T key, BinaryTreeNode<T> parent = null)
         {
             Key = key;
+            //Parent = parent;
         }
 
         public T Key { get; private set; }
@@ -13,24 +14,35 @@
 
         public BinaryTreeNode<T> Right { get; private set; }
 
-        public void SetLeftNode(T nodeKey)
+        public BinaryTreeNode<T> Parent { get; private set; }
+
+        public BinaryTreeNode<T> AddLeftNode(T nodeKey)
         {
-            Left = new BinaryTreeNode<T>(nodeKey);
+            Left = new BinaryTreeNode<T>(nodeKey, this);
+            return Left;
         }
 
-        public void SetRightNode(T nodeKey)
+        public BinaryTreeNode<T> AddRightNode(T nodeKey)
         {
-            Right = new BinaryTreeNode<T>(nodeKey);
+            Right = new BinaryTreeNode<T>(nodeKey, this);
+            return Right;
         }
 
         public void ReplaceLeftNodeWith(BinaryTreeNode<T> node)
         {
-            Left = node;
+            //if(node != null) node.ReplaceParentNodeWith(this);
+            Left = node;            
         }
 
         public void ReplaceRightNodeWith(BinaryTreeNode<T> node)
         {
+            //if (node != null) node.ReplaceParentNodeWith(this);
             Right = node;
+        }
+
+        public void ReplaceParentNodeWith(BinaryTreeNode<T> node)
+        {
+            Parent = node;
         }
 
         public void SetKey(T key)

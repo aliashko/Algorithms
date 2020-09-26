@@ -12,16 +12,16 @@ namespace DataStructures.UnitTests.Trees
         public void Setup()
         {
             sampleBinaryTree = new BinaryTree<int>(10);
-            sampleBinaryTree.RootNode.SetLeftNode(5);
-            sampleBinaryTree.RootNode.Left.SetLeftNode(2);
-            sampleBinaryTree.RootNode.Left.SetRightNode(7);
-            sampleBinaryTree.RootNode.Left.Right.SetLeftNode(6);
-            sampleBinaryTree.RootNode.Left.Right.SetRightNode(8);
+            sampleBinaryTree.RootNode.AddLeftNode(5);
+            sampleBinaryTree.RootNode.Left.AddLeftNode(2);
+            sampleBinaryTree.RootNode.Left.AddRightNode(7);
+            sampleBinaryTree.RootNode.Left.Right.AddLeftNode(6);
+            sampleBinaryTree.RootNode.Left.Right.AddRightNode(8);
 
-            sampleBinaryTree.RootNode.SetRightNode(20);
-            sampleBinaryTree.RootNode.Right.SetRightNode(30);
-            sampleBinaryTree.RootNode.Right.Right.SetLeftNode(25);
-            sampleBinaryTree.RootNode.Right.Right.SetRightNode(35);
+            sampleBinaryTree.RootNode.AddRightNode(20);
+            sampleBinaryTree.RootNode.Right.AddRightNode(30);
+            sampleBinaryTree.RootNode.Right.Right.AddLeftNode(25);
+            sampleBinaryTree.RootNode.Right.Right.AddRightNode(35);
         }
 
         [TestMethod]

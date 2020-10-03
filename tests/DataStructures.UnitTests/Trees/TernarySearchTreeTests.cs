@@ -6,28 +6,28 @@ using System.Linq;
 
 namespace DataStructures.UnitTests.Trees
 {
-    [TestClass]
-    public class TrieTests
+    // [TestClass]
+    public class TernarySearchTreeTests
     {
-        private Trie sampleTrie;
+        private TernarySearchTree sampleTree;
         private List<string> sampleKeys = new List<string> {
-            "a", "abc", "z", "zoo",
+            "a", "abc", "z", "zoo", "zoopark", "zoobarn", "zooshop",
             "trie", "is", "an", "efficient", "information", "retrieval", "data", "structure"
         };
 
         [TestInitialize]
         public void Setup()
         {
-            sampleTrie = new Trie();
-            sampleKeys.ForEach(key => sampleTrie.Insert(key));
+            sampleTree = new TernarySearchTree();
+            sampleKeys.ForEach(key => sampleTree.Insert(key));
         }
 
         [TestMethod]
-        public void AddedKeysCanBeFoundInTrie()
+        public void AddedKeysCanBeFoundInTree()
         {
             foreach(var key in sampleKeys)
             {
-                var node = sampleTrie.FindNodeByKey(key);
+                var node = sampleTree.FindNodeByKey(key);
                 Assert.IsNotNull(node);
                 Assert.AreEqual(key.Last(), node.Key);
                 Assert.IsTrue(node.IsEndOfWord);
@@ -35,23 +35,23 @@ namespace DataStructures.UnitTests.Trees
         }
 
         [TestMethod]
-        public void UnknownKeysCannotBeFoundInTrie()
+        public void UnknownKeysCannotBeFoundInTree()
         {
             var unknownKeys = new List<string> { "b", "abd", "informatiom", "ant", "antic", "tri", "retrie" };
             foreach (var key in unknownKeys)
             {
-                var node = sampleTrie.FindNodeByKey(key);
+                var node = sampleTree.FindNodeByKey(key);
                 Assert.IsNull(node);
             }
         }
 
         [TestMethod]
-        public void StringKeyCanBeInsertedInTrie()
+        public void StringKeyCanBeInsertedInTree()
         {
             var newKeys = new List<string> { "zoom", "antic", "b" };
             foreach (var key in newKeys)
             {
-                var node = sampleTrie.Insert(key);
+                var node = sampleTree.Insert(key);
                 Assert.IsNotNull(node);
                 Assert.AreEqual(key.Last(), node.Key);
                 Assert.IsTrue(node.IsEndOfWord);
@@ -59,34 +59,36 @@ namespace DataStructures.UnitTests.Trees
         }
 
         [TestMethod]
-        public void DuplicatedKeyCannotBeInsertedInTrie()
+        public void DuplicatedKeyCannotBeInsertedInTree()
         {
             foreach (var key in sampleKeys)
             {
-                Assert.ThrowsException<ArgumentException>(() => sampleTrie.Insert(key));
+                Assert.ThrowsException<ArgumentException>(() => sampleTree.Insert(key));
             }            
         }
 
         [TestMethod]
-        public void ExistingNodeCanBeRemovedFromTrie()
+        public void ExistingNodeCanBeRemovedFromTree()
         {
             foreach (var key in sampleKeys)
             {
-                sampleTrie.Remove(key);
-                var node = sampleTrie.FindNodeByKey(key);
+                sampleTree.Remove(key);
+                var node = sampleTree.FindNodeByKey(key);
                 Assert.IsNull(node);
             }
 
-            Assert.IsTrue(sampleTrie.RootNode.Children.Any(n => n == null));
+            Assert.IsNull(sampleTree.RootNode.LeftNode);
+            Assert.IsNull(sampleTree.RootNode.RightNode);
+            Assert.IsNull(sampleTree.RootNode.EqualNode);
         }
 
         [TestMethod]
-        public void NonexistingNodeCannotBeRemovedFromTrie()
+        public void NonexistingNodeCannotBeRemovedFromTree()
         {
             var unknownKeys = new List<string> { "b", "abd", "informatiom", "ant", "antic", "tri", "retrie" };
             foreach (var key in unknownKeys)
             {
-                Assert.ThrowsException<ArgumentException>(() => sampleTrie.Remove(key));
+                Assert.ThrowsException<ArgumentException>(() => sampleTree.Remove(key));
             }
         }
     }

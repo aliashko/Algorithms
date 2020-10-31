@@ -3,8 +3,10 @@
 namespace DataStructures.Trees
 {
     /// <summary>
-    /// Fast retrieving, inserting - O(key.length)
-    /// But require a lot of memory
+    /// Tries are used for storing strings and autocomplete features (prefix search)
+    /// Main adventage: Fast retrieving, inserting, deleting - O(key.length)
+    ///                 Other self-balanced BST require O(L Log n) for all operations where n is total number words and L is length of word
+    /// Main Disadventage: Trie requires a lot of memory
     /// </summary>
     public class Trie
     {

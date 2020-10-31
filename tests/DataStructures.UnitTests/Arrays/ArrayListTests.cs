@@ -1,5 +1,6 @@
 ﻿using DataStructures.Arrays;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Text;
 
 namespace DataStructures.UnitTests.Arrays.LinkedLists
@@ -51,7 +52,7 @@ namespace DataStructures.UnitTests.Arrays.LinkedLists
             Assert.AreEqual(arrayList[0], 0);
             Assert.AreEqual(arrayList[49], 49);
             Assert.AreEqual(arrayList[50], 51);
-            Assert.AreEqual(arrayList[99], default);
+            Assert.ThrowsException<IndexOutOfRangeException>(() => arrayList[99]);
         }
     }
 }

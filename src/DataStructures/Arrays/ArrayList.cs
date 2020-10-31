@@ -87,7 +87,7 @@ namespace DataStructures.Arrays
 
         private void CheckIfIndexAvailable(int index)
         {
-            if (index > currentIndex || index < 0)
+            if (index >= currentIndex || index < 0)
             {
                 throw new IndexOutOfRangeException();
             }

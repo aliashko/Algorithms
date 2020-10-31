@@ -18,11 +18,13 @@ namespace DataStructures.Trees
 
         private ArrayList<T> _heapArray;
 
+        public int GetLength() => _heapArray.GetLength();
+
         public void Insert(T key)
         {
             // Firstly insert the new key at the end  
             int i = _heapArray.GetLength();
-            _heapArray[i] = key;
+            _heapArray.Add(key);
 
             // Fix the min heap property if it is violated  
             while (i != 0 && _heapArray[i].CompareTo(_heapArray[GetParentIndex(i)]) < 0)

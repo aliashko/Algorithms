@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DataStructures.Arrays
 {
-    public class ArrayList<T>
+    public class ArrayList<T> : IEnumerable<T>
     {
         private const int defaultCapacity = 8;
 
@@ -124,10 +126,62 @@ namespace DataStructures.Arrays
             return array;
         }
 
+        public IEnumerator<T> GetEnumerator()
+        {
+            return new ArrayListEnumerator<T>(this);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
         public T this[int key]
         {
             get => ElementAt(key);
             set => SetValue(key, value);
+        }
+    }
+
+    public class ArrayListEnumerator<T> : IEnumerator<T>
+    {
+        public ArrayListEnumerator(ArrayList<T> arrayList)
+        {
+            _arrayList = arrayList;
+        }
+
+        private ArrayList<T> _arrayList;
+
+        private int _position = -1;
+
+        public T Current
+        {
+            get
+            {
+                if (_position == -1 || _position >= _arrayList.GetLength())
+                    throw new InvalidOperationException();
+                return _arrayList[_position];
+            }
+        }
+
+        object IEnumerator.Current => Current;
+
+        public bool MoveNext()
+        {
+            if (_position < _arrayList.GetLength() - 1)
+            {
+                _position++;
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public void Reset()
+        {
+            _position = -1;
+        }
+
+        public void Dispose()
+        {
+            _arrayList = null;
         }
     }
 }

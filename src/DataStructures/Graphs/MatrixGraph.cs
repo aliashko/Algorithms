@@ -11,7 +11,7 @@ namespace DataStructures.Graphs
     /// Pros: Quick querying and removing elements
     /// Cons: Consumes more space (O(V^2)) Even if the graph is sparse(contains less number of edges), it consumes the same space. Slow adding of vertex
     /// </summary>
-    public class MatrixGraph<T>
+    public class MatrixGraph<T> : IGraph<T>
     {
         public MatrixGraph(int vertexesCount)
         {
@@ -27,6 +27,8 @@ namespace DataStructures.Graphs
 
         public int VertexesCount { get; }
 
+        public T this[int index] => Vertexes[index];
+
         public T[] Vertexes;
 
         private int[][] Matrix;
@@ -36,7 +38,8 @@ namespace DataStructures.Graphs
             GuardIndex(index, nameof(index));
             Vertexes[index] = value;
         }
-        public void SetEdge(int index1, int index2)
+
+        public void AddEdge(int index1, int index2)
         {
             GuardIndex(index1, nameof(index1));
             GuardIndex(index2, nameof(index2));
@@ -66,6 +69,21 @@ namespace DataStructures.Graphs
             }
 
             return connections;
+        }
+
+        public ArrayList<int> BreadthFirstTraversal(int startIndex = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ArrayList<int> DepthFirstTraversal(int startIndex = 0)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsContainCycle(int startIndex = 0)
+        {
+            throw new NotImplementedException();
         }
 
         private void GuardIndex(int index, string nameOfParam)

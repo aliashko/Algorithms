@@ -5,7 +5,7 @@ namespace DataStructures.Graphs
     public interface IGraph<T>
     {
         void SetVertex(int index, T value);
-        void AddEdge(int index1, int index2);
+        void AddEdge(int index1, int index2, bool directed = false);
         void RemoveVertex(int index);
         ArrayList<int> GetAllConnectedVertexes(int parentIndex);
 

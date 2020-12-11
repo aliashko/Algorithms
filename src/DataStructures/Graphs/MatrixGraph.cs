@@ -39,14 +39,17 @@ namespace DataStructures.Graphs
             Vertexes[index] = value;
         }
 
-        public void AddEdge(int index1, int index2)
+        public void AddEdge(int index1, int index2, bool directed = false)
         {
             GuardIndex(index1, nameof(index1));
             GuardIndex(index2, nameof(index2));
             if(index1 == index2) throw new ArgumentException("indexes shouldn't be the same");
 
             Matrix[index1][index2] = 1;
-            Matrix[index2][index1] = 1;
+            if (!directed)
+            {
+                Matrix[index2][index1] = 1;
+            }
         }
 
         public void RemoveVertex(int index)

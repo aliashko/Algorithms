@@ -36,5 +36,15 @@ namespace DataStructures.Arrays
 
             return lastItem;
         }
+
+        public T[] ToArray()
+        {
+            var array = new T[dataArray.GetLength()];
+            for(var i = 0; i < dataArray.GetLength(); i++)
+            {
+                array[i] = dataArray[dataArray.GetLength() - 1 - i];
+            }
+            return array;
+        }
     }
 }

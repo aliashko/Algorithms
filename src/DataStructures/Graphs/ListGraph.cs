@@ -1,6 +1,5 @@
 ﻿using DataStructures.Arrays;
 using System;
-using System.Net.Http.Headers;
 
 namespace DataStructures.Graphs
 {
@@ -45,7 +44,7 @@ namespace DataStructures.Graphs
             Vertexes[index] = value;
         }
 
-        public void AddEdge(int index1, int index2)
+        public void AddEdge(int index1, int index2, bool directed = false)
         {
             GuardIndex(index1, nameof(index1));
             GuardIndex(index2, nameof(index2));
@@ -57,7 +56,10 @@ namespace DataStructures.Graphs
             }
 
             AdjacencyList[index1].Add(index2);
-            AdjacencyList[index2].Add(index1);        
+            if (!directed)
+            {
+                AdjacencyList[index2].Add(index1);
+            }
         }
 
         public void RemoveVertex(int index)
